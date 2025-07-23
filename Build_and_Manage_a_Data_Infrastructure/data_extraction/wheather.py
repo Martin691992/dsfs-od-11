@@ -36,12 +36,12 @@ def findWeatherLatLong(row):
 
 
 
-df = pd.read_table('./Build_&_Manage_a_Data_Infrastructure/data/city_lat_lon.txt',encoding='utf-8',sep=',')
+df = pd.read_table('./Build_and_Manage_a_Data_Infrastructure/data/city_lat_lon.txt',encoding='utf-8',sep=',')
 df.set_index('id',inplace=True)
 
 df[['précipitation','description_meteo','temperature']] = df.apply(lambda row : pd.Series(findWeatherLatLong(row)),axis=1)
 print(df.head())
 print('Enregistrement des résultats :')
-df.to_csv('./Build_&_Manage_a_Data_Infrastructure/data/wheather.csv',encoding='utf-8')
+df.to_csv('./Build_and_Manage_a_Data_Infrastructure/data/wheather.csv',encoding='utf-8')
 
 
