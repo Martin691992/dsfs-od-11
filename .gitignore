@@ -15,3 +15,5 @@ archives
 
 __pycache__/
 *.pyc
+
+resultats.json
