@@ -40,6 +40,7 @@ df = pd.read_table('./Build_and_Manage_a_Data_Infrastructure/data/city_lat_lon.t
 df.set_index('id',inplace=True)
 
 df[['précipitation','description_meteo','temperature']] = df.apply(lambda row : pd.Series(findWeatherLatLong(row)),axis=1)
+df['scrapp'] = 0
 print(df.head())
 print('Enregistrement des résultats :')
 df.to_csv('./Build_and_Manage_a_Data_Infrastructure/data/wheather.csv',encoding='utf-8')
