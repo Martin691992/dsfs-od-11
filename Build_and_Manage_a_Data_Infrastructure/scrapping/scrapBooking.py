@@ -74,8 +74,6 @@ if __name__ == "__main__":
     villes = []
     df = pd.read_csv('./Build_and_Manage_a_Data_Infrastructure/data/wheather.csv')
     df_filtered = df[df['scrapp'] == 0]
-    print(df_filtered.head())
-    print(df_filtered.shape)
     for i in df_filtered.values:
         villes.append({
             "id_ville" : int(i[0]),

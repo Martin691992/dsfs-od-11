@@ -10,6 +10,11 @@ env
 env/
 
 
+#Virtual env
+venv
+venv/
+
+
 archives
 
 
