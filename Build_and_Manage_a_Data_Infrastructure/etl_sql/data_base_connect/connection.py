@@ -12,8 +12,34 @@ class Connector():
             password=os.getenv("DB_PASSWORD"),
             database=os.getenv("DB_NAME")
         )
-        cursor = self.connector.cursor()
-        cursor.execute("CREATE TABLE IF NOT EXISTS ")
+        self.cursor = self.connector.cursor()
+        self.cursor.execute("""CREATE TABLE IF NOT EXISTS wheather (
+                                                        id PRIMARY KEY INTEGER,
+                                                        ville VARCHAR(255),
+                                                        lat FLOAT, 
+                                                        lon FLOAT,
+                                                        precipitation FLOAT,
+                                                        description_meteo VARCHAR(255),
+                                                        temperature FLOAT,
+                                                        scrapp INTEGER)""")
+        self.connector.commit()
+        self.cursor.execute("""CREATE TABLE IF NOT EXISTS hotels (
+                                                        id PRIMARY KEY INTEGER,
+                                                        id_ville INTEGER,
+                                                        ville VARCHAR(255),
+                                                        url TEXT,
+                                                        nom_hotel)""")
+        self.connector.commit()
+
+
+    def insertWheatherData(self, data):
+        requete = """
+        INSERT INTO wheather (id,ville,lat,lon,precipitation,description_meteo,temperature,scrapp)
+                        VALUES (%s,%s,%s,%s,%s,%s,%s,%s)
+        """
+        values = ""
+        self.cursor.execute()
+        
 
 
 

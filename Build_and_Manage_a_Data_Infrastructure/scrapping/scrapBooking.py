@@ -30,19 +30,20 @@ class HotelSpider(scrapy.Spider):
     async def parse(self, response, ville, id_ville,url):
         titles = response.xpath('.//div[@data-testid="title"]/text()').getall()
         lien = response.xpath('//a[@data-testid="title-link"]/@href').getall()
-        print(f"{id_ville}|{ville} : {titles[0] if len(titles) > 0 else "Pas d'hotel"} --- nombre d'hotel : {len(titles)}")
+        print(f"{id_ville}|{ville} : {titles[0] if len(titles) > 0 else "Pas d'hotel"} --- nombre d'hotels : {len(titles)}")
         retry_count = response.meta.get("retry_count", 0)
         if not titles and retry_count < 2:
             print(f"essai n°{retry_count}")
             yield response.request.replace(meta={"retry_count": retry_count + 1},dont_filter=True)
 
         if len(titles)>0:
-            self.resultats.append({
-                "id_ville" : int(id_ville),
-                "ville":ville,
-                "url" : url,
-                "hotels" : titles
-            })
+            for a in titles:
+                self.resultats.append({
+                    "id_ville" : int(id_ville),
+                    "ville":ville,
+                    "url" : url,
+                    "hotels" : a.replace(","," ")  ## il y a souvent des virgules dans les noms des hotels, donc on les squizzes
+                })
         else :
             self.ville_sans_hotels.append({
                 "id_ville" : int(id_ville),
@@ -56,45 +57,50 @@ class HotelSpider(scrapy.Spider):
         print(failure)
         yield
 
-def lancerCrawler(villes):
-    resultats = []
-    ville_sans_hotels = []
-    spider = HotelSpider
-    process = CrawlerProcess(settings={
-        "FEEDS": {"resultats.json": {"format": "json"}},
-        "LOG_LEVEL": "ERROR",
-        "DOWNLOAD_DELAY": 1,
-        # "RANDOMIZE_DOWNLOAD_DELAY": True,
-    })
-    process.crawl(spider,villes=villes,resultats=resultats,ville_sans_hotels=ville_sans_hotels)
-    process.start()
-    return resultats, ville_sans_hotels
 
-if __name__ == "__main__":
-    villes = []
-    df = pd.read_csv('./Build_and_Manage_a_Data_Infrastructure/data/wheather.csv')
-    df_filtered = df[df['scrapp'] == 0]
-    for i in df_filtered.values:
-        villes.append({
-            "id_ville" : int(i[0]),
-            "ville":i[1],
-            "url" : f"https://www.booking.com/searchresults.fr.html?ss={i[1]}"
-            })
+class Crawl(): 
+    def __init__(self):
+        self.anyVilles = False
+        villes = []
+        df = pd.read_csv('./data/wheather.csv')
+        df_filtered = df[df['scrapp'] == 0]
+        for i in df_filtered.values:
+            villes.append({
+                "id_ville" : int(i[0]),
+                "ville":i[1],
+                "url" : f"https://www.booking.com/searchresults.fr.html?ss={i[1]}"
+                })
+        if len(villes) == 0 :
+            self.anyVilles = True
+            return None
+        premier_result, ville_no_hotels = self.lancerCrawler(villes=villes)
+        id_in_results = [i.get('id_ville') for i in premier_result]
+        df.loc[df["id"].isin(id_in_results) & (df["scrapp"] != 1), "scrapp"] = 1
+        df.set_index('id',inplace=True)
+        df.to_csv('./data/wheather.csv',encoding='utf-8')
+        if os.path.isfile('./data/hotels.csv'):
+            hotels = pd.read_csv('./data/hotels.csv')
+            hotels.set_index('id_ville',inplace=True)
+            new_hotels = pd.DataFrame(premier_result)
+            new_hotels.set_index('id_ville',inplace=True)
+            final = pd.concat([hotels,new_hotels])
+            final.to_csv('./data/hotels.csv',encoding='utf-8')
+        else:
+            new_hotels = pd.DataFrame(premier_result)
+            new_hotels.set_index('id_ville',inplace=True)
+            new_hotels.to_csv('./data/hotels.csv',encoding='utf-8')
         
-    premier_result, ville_no_hotels = lancerCrawler(villes=villes)
-    id_in_results = [i.get('id_ville') for i in premier_result]
-    df.loc[df["id"].isin(id_in_results) & (df["scrapp"] != 1), "scrapp"] = 1
-    df.set_index('id',inplace=True)
-    df.to_csv('./Build_and_Manage_a_Data_Infrastructure/data/wheather.csv',encoding='utf-8')
-    if os.path.isfile('./Build_and_Manage_a_Data_Infrastructure/data/hotels.csv'):
-        hotels = pd.read_csv('./Build_and_Manage_a_Data_Infrastructure/data/hotels.csv')
-        hotels.set_index('id_ville',inplace=True)
-        new_hotels = pd.DataFrame(premier_result)
-        new_hotels.set_index('id_ville',inplace=True)
-        final = pd.concat([hotels,new_hotels])
-        final.to_csv('./Build_and_Manage_a_Data_Infrastructure/data/hotels.csv',encoding='utf-8')
-    else:
-        new_hotels = pd.DataFrame(premier_result)
-        new_hotels.set_index('id_ville',inplace=True)
-        new_hotels.to_csv('./Build_and_Manage_a_Data_Infrastructure/data/hotels.csv',encoding='utf-8')
-
+            
+    def lancerCrawler(self, villes):
+        resultats = []
+        ville_sans_hotels = []
+        spider = HotelSpider
+        process = CrawlerProcess(settings={
+            "FEEDS": {"resultats.json": {"format": "json"}},
+            "LOG_LEVEL": "ERROR",
+            "DOWNLOAD_DELAY": 1,
+            # "RANDOMIZE_DOWNLOAD_DELAY": True,
+        })
+        process.crawl(spider,villes=villes,resultats=resultats,ville_sans_hotels=ville_sans_hotels)
+        process.start()
+        return resultats, ville_sans_hotels
