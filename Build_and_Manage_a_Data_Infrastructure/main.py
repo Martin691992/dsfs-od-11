@@ -1,7 +1,8 @@
 # Main script
 # On peut lancer ce script dans le venv et ainsi faire les extractions de données, leur traitement et enregistrement
 import os
-from data_extraction.wheather import LoadWeather, ExtractCitiesLocation
+from data_extraction.wheather import LoadWeather
+from data_extraction.nominatim import ExtractCitiesLocation
 from scrapping.scrapBooking import Crawl
 from etl_sql.insertData import DataInsertion
 
@@ -23,7 +24,6 @@ if __name__ == "__main__":
     
     print("Lancement du Scrapping")
 
-
     # On pourra relancer le script autant de fois que nécessaire pour avoir des hotels dans toutes les villes car de temps à autres les
     # les hotels ne sont pas scrappés tout de suite.
     # On pourrait mettre en place un CrawlerRunner plutot que CrawlerProcess car le pas possible de relancer plusieur fois CrawlerProcess
@@ -34,3 +34,4 @@ if __name__ == "__main__":
     # Avant la dataInsertion en BDD SQL on sait que l'on doit avoir : 35 villes * 25 resultats d'hotel soit : 875 resultats
 
     DataInsertion()
+    print("Insertion des données terminée")
