@@ -23,7 +23,6 @@ if __name__ == "__main__":
         print("Fin de la récupération de la météo")
     
     print("Lancement du Scrapping")
-
     # On pourra relancer le script autant de fois que nécessaire pour avoir des hotels dans toutes les villes car de temps à autres les
     # les hotels ne sont pas scrappés tout de suite.
     # On pourrait mettre en place un CrawlerRunner plutot que CrawlerProcess car le pas possible de relancer plusieur fois CrawlerProcess
@@ -31,7 +30,6 @@ if __name__ == "__main__":
     if scrapping.anyVilles == True:
         print("Plus d'hotels à scrapper")
     print("Fin du scrapping")
-    # Avant la dataInsertion en BDD SQL on sait que l'on doit avoir : 35 villes * 25 resultats d'hotel soit : 875 resultats
-
-    DataInsertion()
+    data = DataInsertion()
+    data.insertionHotels()
     print("Insertion des données terminée")
