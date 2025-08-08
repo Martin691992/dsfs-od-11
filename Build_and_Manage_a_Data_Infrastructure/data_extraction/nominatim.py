@@ -1,6 +1,7 @@
 import requests
 import time
 import pandas as pd
+import os
 
 class ExtractCitiesLocation:
     def __init__(self):
@@ -19,16 +20,17 @@ class ExtractCitiesLocation:
                 break
             data = response.json()
             results.append(data[0])
-            print(f"Données recues pour : {i}")
+            print(f"Données météo reçues pour : {i}")
             time.sleep(1) ## on attend une seconde pour ne pas se faire bannir de l'api
 
         print(f"{len(results)} resultats")
         # écriture des colonnes, je ne garde ici que l'index, name, la latitude et la longitude
-        with open('./Build_and_Manage_a_Data_Infrastructure/data/city_lat_lon.txt',"w") as f:
+
+        with open('./data/city_lat_lon.txt',"w") as f:
             f.write('id,name,lat,lon\n')
 
         for index, y in enumerate(results):
             print(f"{y['name']} : latitude = {y['lat']} - longitude {y['lon']}")
-            with open('./Build_and_Manage_a_Data_Infrastructure/data/city_lat_lon.txt',"a",encoding='utf-8') as f:
+            with open('./data/city_lat_lon.txt',"a",encoding='utf-8') as f:
                 f.write(f"{index},{y['name']},{y['lat']},{y['lon']}\n")
 

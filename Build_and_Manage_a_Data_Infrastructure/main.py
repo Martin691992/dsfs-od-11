@@ -31,5 +31,6 @@ if __name__ == "__main__":
         print("Plus d'hotels à scrapper")
     print("Fin du scrapping")
     data = DataInsertion()
+    data.insertionMeteo()
     data.insertionHotels()
     print("Insertion des données terminée")

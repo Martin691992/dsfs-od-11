@@ -13,7 +13,7 @@ class Connector():
             database=os.getenv("DB_NAME")
         )
         self.cursor = self.connector.cursor()
-        self.cursor.execute("""CREATE TABLE IF NOT EXISTS wheather (id_ville SERIAL PRIMARY KEY,
+        self.cursor.execute("""CREATE TABLE IF NOT EXISTS wheather (id_ville INTEGER PRIMARY KEY,
                                                         ville VARCHAR(255),
                                                         lat FLOAT, 
                                                         lon FLOAT,
@@ -69,6 +69,38 @@ class Connector():
         """
         self.cursor.execute(requete)
         self.connector.commit()
+
+    def insertMeteo(self,id_ville,ville,latitude,longitude,precipitation,desc_meteo,temperature,scrapp):
+        requete = """
+        INSERT INTO wheather (id_ville,ville,lat,lon,precipitation,description_meteo,temperature,scrapp) 
+        VALUES (%s,%s,%s,%s,%s,%s,%s,%s)
+        """
+        values = (id_ville,ville,latitude,longitude,precipitation,desc_meteo,temperature,scrapp)
+        self.cursor.execute(requete,values)
+        self.connector.commit()
+
+    def verifDoublonsMeteo(self):
+        requete = """
+        SELECT id_ville, ville, COUNT(*) AS nb
+        FROM wheather
+        GROUP BY id_ville, ville
+        HAVING COUNT(*) > 1
+        """
+        self.cursor.execute(requete)
+        doublons = self.cursor.fetchall()
+        return doublons
+
+    def supprimerDoublonsMeteo(self):
+        requete = """
+        DELETE FROM wheather
+        WHERE id_ville NOT IN (
+        SELECT MIN(id_ville)
+        FROM hotels
+        GROUP BY id_ville, ville)
+        """
+        self.cursor.execute(requete)
+        self.connector.commit()
+
 
         
 
