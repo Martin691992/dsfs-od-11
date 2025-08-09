@@ -30,20 +30,24 @@ class HotelSpider(scrapy.Spider):
     async def parse(self, response, ville, id_ville,url):
         titles = response.xpath('.//div[@data-testid="title"]/text()').getall()
         lien = response.xpath('//a[@data-testid="title-link"]/@href').getall()
-        print(f"{id_ville}|{ville} : {titles[0] if len(titles) > 0 else "Pas d'hotel"} --- nombre d'hotels : {len(titles)}")
+        score = response.xpath('.//div[@data-testid="review-score"]/div[2]/text()').getall()
+        print(f"{id_ville}|{ville} : {titles[0] if len(titles) > 0 else "Pas d'hotel"} --- nombre d'hotels : {len(titles)} - score : {score}")
         retry_count = response.meta.get("retry_count", 0)
         if not titles and retry_count < 2:
             print(f"essai n°{retry_count}")
             yield response.request.replace(meta={"retry_count": retry_count + 1},dont_filter=True)
 
         if len(titles)>0:
-            for a in titles:
+            for index, a in enumerate(titles):
                 self.resultats.append({
                     "id_ville" : int(id_ville),
                     "ville":ville,
                     "url" : url,
-                    "hotels" : a.replace(","," ")  ## il y a souvent des virgules dans les noms des hotels, donc on les squizzes
+                    "hotels" : a.replace(","," "), ## il y a souvent des virgules dans les noms des hotels, donc on les squizzes
+                    "Lien" :  lien[index],
+                    "Score" : float(score[index].replace(',','.'))
                 })
+            print(self.resultats[0])
         else :
             self.ville_sans_hotels.append({
                 "id_ville" : int(id_ville),
