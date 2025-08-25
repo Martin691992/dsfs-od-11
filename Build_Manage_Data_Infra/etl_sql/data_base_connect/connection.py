@@ -26,7 +26,12 @@ class Connector():
                                                         id_ville INTEGER,
                                                         ville VARCHAR(255),
                                                         url TEXT,
-                                                        nom_hotel TEXT)""")
+                                                        nom_hotel TEXT,
+                                                        url_hotel TEXT,
+                                                        note_hotel FLOAT,
+                                                        description TEXT,
+                                                        lat FLOAT,
+                                                        lon FLOAT)""")
         self.connector.commit()
 
 
@@ -39,12 +44,12 @@ class Connector():
         self.cursor.execute(requete,values)
         self.connector.commit()
 
-    def insertHotels(self, id_ville,ville,url,nom_hotel):
+    def insertHotels(self, id_ville,ville,url,nom_hotel,url_hotel,note_hotel,description):
         requete = """
-        INSERT INTO hotels (id_ville,ville,url,nom_hotel)
-                        VALUES (%s,%s,%s,%s)
+        INSERT INTO hotels (id_ville,ville,url,nom_hotel,url_hotel,note_hotel,description)
+                        VALUES (%s,%s,%s,%s,%s,%s,%s)
         """
-        values = (id_ville,ville,url,nom_hotel)
+        values = (id_ville,ville,url,nom_hotel,url_hotel,note_hotel,description)
         self.cursor.execute(requete,values)
         self.connector.commit()
 
@@ -101,6 +106,20 @@ class Connector():
         self.cursor.execute(requete)
         self.connector.commit()
 
+    def selectHotels(self):
+        requete = """
+        SELECT id, url_hotel FROM hotels
+        """
+        self.cursor.execute(requete)
+        return self.cursor.fetchall()
+    
+    def updateLatLonHotels(self, lat, lon, id_hotel):
+        requete = """
+        UPDATE hotels SET lat = %s, lon = %s WHERE id = %s
+        """
+        values = [lat,lon,id_hotel]
+        self.cursor.execute(requete, values)
+        self.connector.commit()
 
         
 

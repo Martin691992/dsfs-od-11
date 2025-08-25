@@ -24,11 +24,15 @@ class DataInsertion():
                 ville = i[1]
                 url = i[2]
                 nom_hotel = i[3]
+                url_hotel = i[4]
+                note = float(i[5])
+                description = i[6]
                 try :
-                    db.insertHotels(id_ville,ville,url,nom_hotel)
+                    db.insertHotels(id_ville,ville,url,nom_hotel,url_hotel,note,description)
                     print(f"insertion réussie pour {nom_hotel}")
                 except:
                     print(f"une erreur s'est produite pour {ville} - {nom_hotel}")
+                    
             print("l'insertion des hotels s'est bien déroulés")
 
 

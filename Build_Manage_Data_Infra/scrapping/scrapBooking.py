@@ -31,7 +31,11 @@ class HotelSpider(scrapy.Spider):
         titles = response.xpath('.//div[@data-testid="title"]/text()').getall()
         lien = response.xpath('//a[@data-testid="title-link"]/@href').getall()
         score = response.xpath('.//div[@data-testid="review-score"]/div[2]/text()').getall()
-        print(f"{id_ville}|{ville} : {titles[0] if len(titles) > 0 else "Pas d'hotel"} --- nombre d'hotels : {len(titles)} - score : {score}")
+        description = response.xpath('//div[@data-testid="property-card-container"]/div[2]/div[1]/div[1]/div[1]/div[1]/div[3]/text()').getall()
+        # print(f"Description : {ville} - {description}")
+        print(f"nombre description : {len(description)}")
+        print(f"nombre titres : {len(titles)}")
+        # print(f"{id_ville}|{ville} : {titles[0] if len(titles) > 0 else "Pas d'hotel"} --- nombre d'hotels : {len(titles)} - score : {score}")
         retry_count = response.meta.get("retry_count", 0)
         if not titles and retry_count < 2:
             print(f"essai n°{retry_count}")
@@ -45,9 +49,9 @@ class HotelSpider(scrapy.Spider):
                     "url" : url,
                     "hotels" : a.replace(","," "), ## il y a souvent des virgules dans les noms des hotels, donc on les squizzes
                     "Lien" :  lien[index],
-                    "Score" : float(score[index].replace(',','.'))
+                    "Score" : float(score[index].replace(',','.')),
+                    "description" :  description[index].replace('\n','') if index < len(description) else '' ### pour sanitiser la description, j'ai remarqué qu'il pouvait y avoir des erreurs si non (à la ligne dans le .csv)
                 })
-            print(self.resultats[0])
         else :
             self.ville_sans_hotels.append({
                 "id_ville" : int(id_ville),
