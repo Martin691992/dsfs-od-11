@@ -1,7 +1,6 @@
 # Main script
 # On peut lancer ce script dans le venv et ainsi faire les extractions de données, leur traitement et enregistrement
 import os
-import logging
 from data_extraction.wheather import LoadWeather
 from data_extraction.nominatim import ExtractCitiesLocation
 from scrapping.scrapBooking import Crawl
@@ -11,10 +10,6 @@ from scrapping.crawelerHotelsLatLong import RecupLatLong
 
 
 if __name__ == "__main__":
-
-
-
-
     if not os.path.exists('./data'):
         print("Création du dossier data pour les données temporaires")
         os.mkdir('./data')
@@ -37,9 +32,6 @@ if __name__ == "__main__":
     if scrapping.anyVilles == True:
         print("Plus d'hotels à scrapper")
     print("Fin du scrapping")
-
-
-
 
     data = DataInsertion()
     data.insertionMeteo()

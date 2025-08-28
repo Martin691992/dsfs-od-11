@@ -108,7 +108,7 @@ class Connector():
 
     def selectHotels(self):
         requete = """
-        SELECT id, url_hotel FROM hotels
+        SELECT id, url_hotel FROM hotels WHERE lat = 0 AND lon = 0
         """
         self.cursor.execute(requete)
         return self.cursor.fetchall()
