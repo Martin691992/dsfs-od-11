@@ -13,7 +13,6 @@ chdir("./supervised_ml/wall_mart")
 data = pd.read_csv('./data/clean_data.csv',index_col=0)
 data = data.drop('Date',axis=1)
 print(data.head())
-print(data.dtypes)
 
 target = "Weekly_Sales"
 X = data.drop(columns=[target])
@@ -36,14 +35,36 @@ X_test = preprocessor.transform(X_test)
 
 regression = LinearRegression()
 regression.fit(X_train,Y_train)
-print("modele trained")
 
+pred_train = regression.predict(X_train)
+r2_train = r2_score(Y_train,pred_train)
+mae_train = mean_absolute_error(Y_train, pred_train)
+rmse_train = root_mean_squared_error(Y_train, pred_train)
 
-pred = regression.predict(X_test)
-r2 = r2_score(Y_test,pred)
-mae = mean_absolute_error(Y_test, pred)
-rmse = root_mean_squared_error(Y_test, pred)
+print(f"R² (train)   : {r2_train}")
+print(f"MAE (train)  : {mae_train}")
+print(f"RMSE (train) : {rmse_train}")
 
-print(f"R² (test)   : {r2:.4f}")
-print(f"MAE (test)  : {mae:.2f}")
-print(f"RMSE (test) : {rmse:.2f}")
+print("----")
+pred_test = regression.predict(X_test)
+r2_test = r2_score(Y_test,pred_test)
+mae_test = mean_absolute_error(Y_test, pred_test)
+rmse_test = root_mean_squared_error(Y_test, pred_test)
+
+print(f"R² (test)   : {r2_test}")
+print(f"MAE (test)  : {mae_test}")
+print(f"RMSE (test) : {rmse_test}")
+
+print(regression.coef_)
+column_names = []
+for name, pipeline, features_list in preprocessor.transformers_: # loop over pipelines
+    if name == 'num': # if pipeline is for numeric variables
+        features = features_list # just get the names of columns to which it has been applied
+    else: # if pipeline is for categorical variables
+        features = pipeline.named_steps['encoder'].get_feature_names_out() # get output columns names from OneHotEncoder
+    column_names.extend(features) # concatenate features names
+        
+coefs = pd.DataFrame(index = column_names, data = regression.coef_.transpose(), columns=["coefficients"])
+
+feature_importance = abs(coefs).sort_values(by = 'coefficients')
+print(feature_importance.head(10))
