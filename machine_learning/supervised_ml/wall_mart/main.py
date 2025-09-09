@@ -4,9 +4,9 @@ from os import curdir, listdir, chdir
 
 from sklearn.preprocessing import OneHotEncoder, StandardScaler, LabelEncoder
 from sklearn.compose import ColumnTransformer
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.pipeline import Pipeline
-from sklearn.linear_model import LinearRegression
+from sklearn.linear_model import LinearRegression,Ridge,Lasso
 from sklearn.metrics import r2_score, mean_absolute_error, root_mean_squared_error
 
 chdir("./supervised_ml/wall_mart")
@@ -41,7 +41,7 @@ r2_train = r2_score(Y_train,pred_train)
 mae_train = mean_absolute_error(Y_train, pred_train)
 rmse_train = root_mean_squared_error(Y_train, pred_train)
 
-print(f"R² (train)   : {r2_train}")
+print(f"R2 (train)   : {r2_train}")
 print(f"MAE (train)  : {mae_train}")
 print(f"RMSE (train) : {rmse_train}")
 
@@ -51,7 +51,7 @@ r2_test = r2_score(Y_test,pred_test)
 mae_test = mean_absolute_error(Y_test, pred_test)
 rmse_test = root_mean_squared_error(Y_test, pred_test)
 
-print(f"R² (test)   : {r2_test}")
+print(f"R2 (test)   : {r2_test}")
 print(f"MAE (test)  : {mae_test}")
 print(f"RMSE (test) : {rmse_test}")
 
@@ -68,3 +68,32 @@ coefs = pd.DataFrame(index = column_names, data = regression.coef_.transpose(), 
 
 feature_importance = abs(coefs).sort_values(by = 'coefficients')
 print(feature_importance.head(10))
+
+print("")
+print("Recherche meilleur hyper parametres :")
+params_ridge = {'alpha':[0.1,0.2,0.5,0.8,1.1,1.2,1.5,5,10]}
+search_params_ridge = GridSearchCV(Ridge(),param_grid=params_ridge)
+search_params_ridge.fit(X_train,Y_train)
+best_alpha = search_params_ridge.best_params_['alpha']
+
+print(f"Meilleur Alpha : {best_alpha}")
+print("")
+print("Using Ridge")
+ridge = Ridge(alpha=best_alpha)
+ridge.fit(X_train,Y_train)
+y_pred_ridge = ridge.predict(X_test)
+
+print(r2_score(Y_test,y_pred_ridge))
+print("")
+
+print('LASSO')
+
+params_lasso = {"alpha": [0.001, 0.01, 0.05, 0.1, 0.5, 1.0, 5.0, 10.0]}
+search_params_lasso = GridSearchCV(Lasso(),param_grid=params_lasso)
+search_params_lasso.fit(X_train,Y_train)
+best_alpha_lasso = search_params_lasso.best_params_['alpha']
+print(f"Meilleur alpha pour Lasso : {best_alpha_lasso}")
+lasso = Lasso(alpha=best_alpha_lasso)
+lasso.fit(X_train,Y_train)
+y_pred_lasso = lasso.predict(X_test)
+print(r2_score(Y_test,y_pred_lasso))
