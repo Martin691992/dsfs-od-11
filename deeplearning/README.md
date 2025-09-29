@@ -1,4 +1,4 @@
-[1couche]: '/output.png'
+[1couche]: 'output.png'
 
 ![1couche]
 
