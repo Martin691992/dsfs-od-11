@@ -15,6 +15,9 @@
 			<a href="/docs">Documentation</a>
 		</li>
 		<li>
+			<a href="/predictions">Prédire votre revenue</a>
+		</li>
+		<li>
 			<a href="/infos">Informations</a>
 		</li>
 		<!-- <li>
