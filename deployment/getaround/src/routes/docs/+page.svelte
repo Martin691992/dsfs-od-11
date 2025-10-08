@@ -27,7 +27,7 @@
 		<section id="prediction">
 			<h2>Prédire le revenue de votre voiture</h2>
 			<p>
-				Liens vers la <a href="/predictions">prédictions des revenues de votre voiture</a>
+				Liens vers la <a href="/predictions">prédiction des revenues de votre voiture</a>
 			</p>
 			<p>
 				Grâce à cette page vous pourrez, en entrant les informations sur votre véhicule découvrir les potentiels revenues que vous pouvez générer.
@@ -139,7 +139,7 @@
 				margin: 2em 0;
 				h2{
 					font-family: 'Poppins';
-					font-size: clamp(1.5em,2.4em,3vw);
+					font-size: clamp(1.5em,2.8em,3vw);
 				}
 				h3{
 					font-family: 'Poppins';
