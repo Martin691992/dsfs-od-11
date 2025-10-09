@@ -98,7 +98,7 @@
 			overflow-y: scroll;
 			scroll-behavior: smooth;
 			scrollbar-width: thin;
-			height: 80vh;
+			height: 75vh;
 			background-color: rgba(47, 162, 211, 0.1);
 			h3{
 				font-size: 2em;
@@ -128,7 +128,7 @@
 			gap: 5em;
 			background-color: rgba(14, 147, 204, 0.1);
 			padding: 2em;
-			height: 80vh;
+			height: 75vh;
 			overflow-y: scroll;
 			scroll-behavior: smooth;
 			scrollbar-width: thin;
