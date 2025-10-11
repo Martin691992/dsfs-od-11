@@ -30,9 +30,10 @@
 				Liens vers la <a href="/predictions">prédiction des revenues de votre voiture</a>
 			</p>
 			<p>
-				Grâce à cette page vous pourrez, en entrant les informations sur votre véhicule découvrir les potentiels revenues que vous pouvez générer.
+				Grâce à cette page vous pourrez, en entrant les informations sur votre véhicule découvrir
+				les potentiels revenues que vous pouvez générer.
 			</p>
-			<p>Liste des informations nécessaire : </p>
+			<p>Liste des informations nécessaire :</p>
 			<ul>
 				<li>Modèle de votre voiture</li>
 				<li>Kilometrage du véhicule</li>
@@ -52,26 +53,64 @@
 		<section id="api">
 			<h2>API</h2>
 			<h3>/predict</h3>
-			<p>Descrition de notre API ouverte qui vous permettra de connaitre le revenue potentiel de votre voiture.</p>
+			<p>
+				Descrition de notre API ouverte qui vous permettra de connaitre le revenue potentiel de
+				votre voiture.
+			</p>
 			<div class="parametres">
 				<p>Url : https://www.getaround.bonnardconsulting.fr/predict</p>
 				<p>Méthode : POST</p>
 			</div>
 			<div class="parametres">
 				<p>Cette route accepte des données au format JSON.</p>
-				<p>Exemple d'input data : </p>
+				<br>
+				<p>Exemple d'input data :</p>
+				<br>
 				<code>
-						{'{'}
-						"input": [[7.0, 0.27, 0.36, 20.7, 0.045, 45.0, 170.0, 1.001, 3.0, 0.45, 8.8], [7.0, 0.27, 0.36, 20.7, 0.045, 45.0, 170.0, 1.001, 3.0, 0.45, 8.8]]
-						{'}'}
+					method : 'POST',
+					<br>
+					headers: {'{'}
+					'content-type'{':'} 'application/json'
+					{'}'},
+					<br>
+
+					{' body : {'}
+					<br />
+					<span> model_key: 'Renault', </span>
+					<br />
+					<span> mileage: 45000, </span>
+					<br />
+					<span> engine_power: 90, </span>
+					<br />
+					<span> fuel: 'diesel', </span>
+					<br />
+					<span> paint_color: 'black', </span>
+					<br />
+					<span> car_type: 'hatchback', </span>
+					<br />
+					<span> private_parking_available: "True", </span>
+					<br />
+					<span> has_gps: "True", </span>
+					<br />
+					<span> has_air_conditioning: "True", </span>
+					<br />
+					<span> automatic_car: "False", </span>
+					<br />
+					<span> has_getaround_connect: "False", </span>
+					<br />
+					<span> has_speed_regulator: "True", </span>
+					<br />
+					<span> winter_tires: "False" </span>
+					<br />
+
+					{'}'}
 				</code>
 			</div>
 			<div class="parametres">
-				<p>Exemples : </p>
+				<p>Exemples :</p>
 				<span>CURL</span>
 			</div>
 		</section>
-
 	</article>
 </div>
 
@@ -82,7 +121,7 @@
 		text-transform: uppercase;
 		color: rgba(0, 0, 0, 0.7);
 		text-align: center;
-		margin-top: .5em;
+		margin-top: 0.5em;
 	}
 	div {
 		display: grid;
@@ -91,7 +130,7 @@
 		height: 100%;
 		grid-template-columns: 0.25fr 1fr;
 		margin-top: 3em;
-		aside{
+		aside {
 			left: 0;
 			display: block;
 			padding: 2em;
@@ -100,29 +139,29 @@
 			scrollbar-width: thin;
 			height: 75vh;
 			background-color: rgba(47, 162, 211, 0.1);
-			h3{
+			h3 {
 				font-size: 2em;
 				font-family: 'Poppins';
 				margin: 1em 0 0.5em 0;
 				color: rgba(0, 0, 0, 0.7);
 			}
-			ul{
+			ul {
 				list-style: none;
-				li{
-					a{
+				li {
+					a {
 						text-decoration: none;
 						font-family: 'Poppins';
-						font-size: clamp(.8em,1.2em,3vw);
+						font-size: clamp(0.8em, 1.2em, 3vw);
 						color: blue;
 						transition: ease 0.2s;
-						&:hover{
+						&:hover {
 							color: red;
 						}
 					}
 				}
 			}
 		}
-		article{
+		article {
 			display: flex;
 			flex-direction: column;
 			gap: 5em;
@@ -132,46 +171,48 @@
 			overflow-y: scroll;
 			scroll-behavior: smooth;
 			scrollbar-width: thin;
-			section{
+			section {
 				display: flex;
 				flex-direction: column;
 				gap: 1em;
 				margin: 2em 0;
-				h2{
+				h2 {
 					font-family: 'Poppins';
-					font-size: clamp(1.5em,2.8em,3vw);
+					font-size: clamp(1.5em, 2.8em, 3vw);
 				}
-				h3{
+				h3 {
 					font-family: 'Poppins';
-					font-size: clamp(1.2em,1.8em,3vw);
+					font-size: clamp(1.2em, 1.8em, 3vw);
 					color: rgba(0, 0, 0, 0.5);
-					padding: 0.5em ;
+					padding: 0.5em;
 					background-color: rgba(0, 0, 0, 0.1);
 					border-radius: 8px;
 				}
-				ul{
+				ul {
 					padding: 0 2em;
-					li{
+					li {
 						font-family: 'Poppins';
-						font-size: clamp(.8em,1.2em,3vw);
-						
+						font-size: clamp(0.8em, 1.2em, 3vw);
 					}
 				}
-				p{
+				p {
 					font-family: 'Poppins';
-					font-size: clamp(.8em,1.2em,3vw);
+					font-size: clamp(0.8em, 1.2em, 3vw);
 				}
-				.parametres{
+				.parametres {
 					display: flex;
 					flex-direction: column;
 					margin: 0;
-					code{
-						font-family: "Poppins";
+					code {
+						font-family: 'Poppins';
 						background-color: #1e2939;
 						padding: 1.5em 2em;
 						border-radius: 8px;
 						color: white;
 						letter-spacing: 1.5px;
+						span{
+							padding-left: 1em;
+						}
 					}
 				}
 			}

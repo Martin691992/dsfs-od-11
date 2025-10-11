@@ -16,9 +16,9 @@ export const POST = async ({ request }) => {
     // child.on('close', (code) => {
 
     // });
-    async function runScript(){
+    async function runScript(data){
         return new Promise((resolve, reject) => {
-            exec('python src/lib/server/inference/inf.py hello1', (error, stdout, stderr) => {
+            exec(`python src/lib/server/inference/inf.py ${data}`, (error, stdout, stderr) => {
                 if (error) {
                     console.log('erreur')
                     console.error(`exec error: ${error}`);
@@ -30,9 +30,9 @@ export const POST = async ({ request }) => {
         })
         
     }
-    
-
-    const data = await runScript()
+    const requestData = await request.json()
+    const data = await runScript(JSON.stringify(requestData).replace('{','').replace('}',''))
+    console.log(data)
     return json(data)
 
 }
