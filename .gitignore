@@ -26,3 +26,5 @@ resultats.json
 
 data
 data/
+
+docker-compose.yml

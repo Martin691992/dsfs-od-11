@@ -22,7 +22,7 @@ if __name__ == "__main__":
             elif data_dict[i] == "False":
                 data_dict[i] = False
 
-        model = joblib.load("src/lib/server/inference/infe_rental_price.joblib")
+        model = joblib.load("inference/infe_rental_price.joblib")
         ex_prediction = pd.DataFrame([data_dict])
         y_pred = model.predict(ex_prediction)
-        print(y_pred)
+        print(round(y_pred[0],2))

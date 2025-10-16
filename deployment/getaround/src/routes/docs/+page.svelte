@@ -31,7 +31,7 @@
 			</p>
 			<p>
 				Grâce à cette page vous pourrez, en entrant les informations sur votre véhicule découvrir
-				les potentiels revenues que vous pouvez générer.
+				les potentiels revenues que vous pouvez générer par jour.
 			</p>
 			<p>Liste des informations nécessaire :</p>
 			<ul>
@@ -63,16 +63,16 @@
 			</div>
 			<div class="parametres">
 				<p>Cette route accepte des données au format JSON.</p>
-				<br>
+				<br />
 				<p>Exemple d'input data :</p>
-				<br>
+				<br />
 				<code>
 					method : 'POST',
-					<br>
+					<br />
 					headers: {'{'}
 					'content-type'{':'} 'application/json'
 					{'}'},
-					<br>
+					<br />
 
 					{' body : {'}
 					<br />
@@ -108,7 +108,15 @@
 			</div>
 			<div class="parametres">
 				<p>Exemples :</p>
-				<span>CURL</span>
+				<code
+					>$ curl -i -H "Content-Type: application/json" -X POST -d '{'{'}model_key: 'Renault',
+					mileage: 45000, engine_power: 90, fuel: 'diesel', paint_color: 'black', car_type: 'hatchback',
+					private_parking_available: "True", has_gps: "True", has_air_conditioning: "True", automatic_car:
+					"False", has_getaround_connect: "False", has_speed_regulator: "True", winter_tires: "False"
+					{'}'}'
+					<br>
+					https://www.getaround.bonnardconsulting.fr/predict</code
+				>
 			</div>
 		</section>
 	</article>
@@ -210,9 +218,12 @@
 						border-radius: 8px;
 						color: white;
 						letter-spacing: 1.5px;
-						span{
+						span {
 							padding-left: 1em;
 						}
+					}
+					span{
+						font-family: 'Poppins';
 					}
 				}
 			}
