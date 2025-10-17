@@ -57,15 +57,12 @@
 				Descrition de notre API ouverte qui vous permettra de connaitre le revenue potentiel de
 				votre voiture.
 			</p>
+
 			<div class="parametres">
-				<p>Url : https://www.getaround.bonnardconsulting.fr/predict</p>
-				<p>Méthode : POST</p>
-			</div>
-			<div class="parametres">
+				<p><strong>URL</strong> : https://www.getaround.bonnardconsulting.fr/predict</p>
+				<p><strong>Méthode</strong> : POST</p>
 				<p>Cette route accepte des données au format JSON.</p>
-				<br />
 				<p>Exemple d'input data :</p>
-				<br />
 				<code>
 					method : 'POST',
 					<br />
@@ -107,16 +104,55 @@
 				</code>
 			</div>
 			<div class="parametres">
-				<p>Exemples :</p>
-				<code
-					>$ curl -i -H "Content-Type: application/json" -X POST -d '{'{'}model_key: 'Renault',
-					mileage: 45000, engine_power: 90, fuel: 'diesel', paint_color: 'black', car_type: 'hatchback',
-					private_parking_available: "True", has_gps: "True", has_air_conditioning: "True", automatic_car:
-					"False", has_getaround_connect: "False", has_speed_regulator: "True", winter_tires: "False"
-					{'}'}'
+				<p>Exemples de code Python :</p>
+				<code>
+					import requests
 					<br>
-					https://www.getaround.bonnardconsulting.fr/predict</code
+					<br>
+					response = requests.post("https://getaround.bonnardconsulting.fr/predict", json={'{'}
+					<br>
+								<span>"model_key": "Renault",</span>	
+					<br>
+								<span>"mileage": 45000,</span>	
+					<br>
+								<span>"engine_power": 90,</span>	
+					<br>
+								<span>"fuel": "diesel",</span>	
+					<br>
+								<span>"paint_color": "black",</span>	
+					<br>
+								<span>"car_type": "estate",</span>	
+					<br>
+								<span>"private_parking_available": "True",</span>	
+					<br>
+								<span>"has_gps": "True",</span>	
+					<br>
+								<span>"has_air_conditioning": "True",</span>	
+					<br>
+								<span>"automatic_car": "True",</span>	
+					<br>
+								<span>"has_getaround_connect": "True",</span>	
+					<br>
+								<span>"has_speed_regulator": "True",</span>	
+					<br>
+								<span>"winter_tires": "True"</span>	
+								{'}'})
+					<br>
+					<br>
+					print(response.json())
+					</code
 				>
+			</div>
+			<div class="parametres">
+				<p>Output :</p>
+				<p>Format JSON</p>
+				<code>
+					{'{'}
+					<br>
+						<span>153.56</span>
+					<br>
+					{'}'}
+				</code>
 			</div>
 		</section>
 	</article>
@@ -127,7 +163,7 @@
 		font-family: 'Poppins';
 		font-size: clamp(1em, 3em, 3vw);
 		text-transform: uppercase;
-		color: rgba(0, 0, 0, 0.7);
+		color: #b52aad;
 		text-align: center;
 		margin-top: 0.5em;
 	}
@@ -138,15 +174,18 @@
 		height: 100%;
 		grid-template-columns: 0.25fr 1fr;
 		margin-top: 3em;
+		gap: 1em;
+		padding: 1em;
 		aside {
 			left: 0;
 			display: block;
 			padding: 2em;
 			overflow-y: scroll;
 			scroll-behavior: smooth;
-			scrollbar-width: thin;
+			scrollbar-width: none;
 			height: 75vh;
-			background-color: rgba(47, 162, 211, 0.1);
+			background-color: rgba(181, 42, 173, 0.1);
+			border-radius: 8px;
 			h3 {
 				font-size: 2em;
 				font-family: 'Poppins';
@@ -173,7 +212,8 @@
 			display: flex;
 			flex-direction: column;
 			gap: 5em;
-			background-color: rgba(14, 147, 204, 0.1);
+			background-color: rgba(181, 42, 173, 0.1);
+			border-radius: 8px;
 			padding: 2em;
 			height: 75vh;
 			overflow-y: scroll;

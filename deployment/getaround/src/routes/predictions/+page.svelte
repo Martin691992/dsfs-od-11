@@ -7,9 +7,11 @@
 			headers: {
 				'content-type': 'application/json'
 			},
-			body: JSON.stringify(to_predict)
+			body: JSON.stringify({input : to_predict})
 		});
+		console.log(JSON.stringify(to_predict))
 		const data = await request.json();
+
 		return data
 	}
 	let {
@@ -142,7 +144,7 @@
 		h1 {
 			font-family: 'Poppins';
 			font-size: clamp(1em, 3em, 3vw);
-			color: rgba(0, 0, 0, 0.7);
+			color: #b52aad;
 			&.revenue{
 				color: brown;
 				margin-top: 1em;
@@ -161,17 +163,21 @@
 				grid-template-columns:auto 1fr;
 				column-gap: 2em;
 				row-gap: 1em;
-				background-color: rgba(0, 0, 0, 0.2);
+
 				border-radius: 8px;
 				h2{
 					font-family: 'Poppins';
 					font-size: clamp(.8em, 1.5em, 3vw);
+					color: #b52aad;
 				}
 				select, input{
 					cursor: pointer;
 					padding: 0.5em;
 					font-family: 'Poppins';
 					font-size: clamp(.5em, 1em, 3vw);
+					border-radius: 8px;
+					background-color: rgba(181, 42, 173, 0.05);
+					border: solid 1px #b52aad;
 				}
 			}
 		}

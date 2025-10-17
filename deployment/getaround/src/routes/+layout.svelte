@@ -7,10 +7,15 @@
 <nav>
 	<ul>
 		<li>
-			<a href="/">Acceuil</a>
+			<a href="/">
+				<img src="/getaround.png" alt="" />
+			</a>
 		</li>
 	</ul>
 	<ul>
+		<li>
+			<a href="/">Acceuil</a>
+		</li>
 		<li>
 			<a href="/docs">Documentation</a>
 		</li>
@@ -36,15 +41,17 @@
 		width: 100%;
 		display: flex;
 		padding: 2em 4em;
-		box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.10);
+		box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.1);
 		margin-bottom: 2em;
 		justify-content: space-between;
 		ul {
 			display: flex;
+			align-items: center;
 			gap: 2em;
 			list-style: none;
 			li {
 				a {
+					display: flex;
 					text-decoration: none;
 					font-family: 'Poppins';
 					color: rgba(0, 0, 0, 0.7);
@@ -52,17 +59,20 @@
 					&:hover {
 						color: brown;
 					}
+					img {
+						width: 150px;
+					}
 				}
 			}
 		}
 	}
-	footer{
+	footer {
 		margin-top: auto;
 		display: flex;
 		justify-content: center;
 		padding: 1em;
-		p{
-			font-family: "Poppins";
+		p {
+			font-family: 'Poppins';
 		}
 	}
 </style>

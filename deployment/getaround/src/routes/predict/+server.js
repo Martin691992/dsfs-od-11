@@ -18,7 +18,11 @@ export const POST = async ({ request }) => {
         })
         
     }
+    // console.log(await request.text())
     const requestData = await request.json()
+    
+    console.log(JSON.stringify(requestData))
     const data = await runScript(JSON.stringify(requestData).replace('{','').replace('}',''))
+    console.log(data)
     return json(data)
 }
