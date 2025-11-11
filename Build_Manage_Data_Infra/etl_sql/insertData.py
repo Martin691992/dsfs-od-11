@@ -65,7 +65,6 @@ class DataInsertion():
 
         # on supprime la 1ère colonne qui sont les titres des données
         self.meteo = self.meteo[1:]
-        print(self.meteo[:1])
         db = Connector()
         choix = input(f"la liste des ville et de leur météo est de {len(self.meteo)} villes, voulez-vous continuer ? (Y/n) : ")
         while choix not in ["Y", "n"]:

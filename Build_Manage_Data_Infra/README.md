@@ -7,12 +7,11 @@ Cmd : python -m venv venv
 Cmd : venv/Scripts/activate (pour les utilisateurs de Windows)
 puis : pip install -r requirements.txt
 
-Un fichier .env est nécessaire avec les informations nécessaires.
+Un fichier .env est nécessaire avec les informations nécessaires à la connexion à la base de donnée.
 
 
 ### A finir : 
 Récupération des éléments suivants : 
 
-lat et long 
-score given by users
-hotel text descriptions 
+enregistrement des éléments dans s3
+

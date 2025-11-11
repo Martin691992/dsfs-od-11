@@ -37,7 +37,7 @@ class CrawlerLatLongHotels(scrapy.Spider):
             lon = lat_lon.split(",")[1]
             try:
                 self.db.updateLatLonHotels(lat,lon,id_hotel)
-                print("Update bien réussie")
+                print("Update ok")
             except:
                 print("Erreur d'update")
 

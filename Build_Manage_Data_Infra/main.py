@@ -6,6 +6,7 @@ from data_extraction.nominatim import ExtractCitiesLocation
 from scrapping.scrapBooking import Crawl
 from etl_sql.insertData import DataInsertion
 from scrapping.crawelerHotelsLatLong import RecupLatLong
+from etl_sql.s3_connect.s3 import s3_connect
 
 
 
@@ -36,6 +37,9 @@ if __name__ == "__main__":
     data = DataInsertion()
     data.insertionMeteo()
     data.insertionHotels()
-    RecupLatLong()
-
-    print("Insertion des données terminée")
+    res = input("Voulez-vous récupérer les Latitude et Longitude ? : (Y/n)")
+    if res == "Y":
+        RecupLatLong()
+    print("Sauvegarde sous s3")
+    s3_connect()
+    print("Récuperation des données terminée")
