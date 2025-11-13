@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from os import curdir, listdir, chdir
+from os import chdir
 
 from sklearn.preprocessing import OneHotEncoder, StandardScaler, LabelEncoder
 from sklearn.compose import ColumnTransformer
@@ -9,7 +9,7 @@ from sklearn.pipeline import Pipeline
 from sklearn.linear_model import LinearRegression,Ridge,Lasso
 from sklearn.metrics import r2_score, mean_absolute_error, root_mean_squared_error
 
-chdir("./supervised_ml/wall_mart")
+# chdir("./supervised_ml/wall_mart")
 data = pd.read_csv('./data/clean_data.csv',index_col=0)
 data = data.drop('Date',axis=1)
 print(data.head())
@@ -54,8 +54,10 @@ rmse_test = root_mean_squared_error(Y_test, pred_test)
 print(f"R2 (test)   : {r2_test}")
 print(f"MAE (test)  : {mae_test}")
 print(f"RMSE (test) : {rmse_test}")
+print("")
+# print(regression.coef_)
 
-print(regression.coef_)
+## Du cours JEDHA
 column_names = []
 for name, pipeline, features_list in preprocessor.transformers_: # loop over pipelines
     if name == 'num': # if pipeline is for numeric variables
@@ -93,7 +95,8 @@ search_params_lasso = GridSearchCV(Lasso(),param_grid=params_lasso)
 search_params_lasso.fit(X_train,Y_train)
 best_alpha_lasso = search_params_lasso.best_params_['alpha']
 print(f"Meilleur alpha pour Lasso : {best_alpha_lasso}")
+print("Entrainement avec le meilleur LASSO possible")
 lasso = Lasso(alpha=best_alpha_lasso)
 lasso.fit(X_train,Y_train)
 y_pred_lasso = lasso.predict(X_test)
-print(r2_score(Y_test,y_pred_lasso))
+print(f"R2 score : {r2_score(Y_test,y_pred_lasso)}")
