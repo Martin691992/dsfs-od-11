@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.egg-info/
+dist/
+build/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Logs
+*.log
+
+# Environnements virtuels
+venv/
+venv_*/
+env/
+.venv/
+.env
+.env.*
+!.env.example
+!.env.test
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# MacOS
+.DS_Store
+
+# Streamlit
+.streamlit/
+
+# Data & archives
+*.csv
+data/
+archives/
+
+# Modèles lourds (optionnel)
+# *.pkl
