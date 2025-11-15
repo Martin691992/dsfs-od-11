@@ -1,0 +1,10 @@
+:root{
+    --mainFont : "Inter", sans-serif;
+    --secondFont : "Poppins", sans-serif;
+    --colorGetAround : #b52aad;
+    --secondColor: rgba(0, 0, 0, 0.7);
+}
+
+p{
+    font-family: "Poppins";
+}

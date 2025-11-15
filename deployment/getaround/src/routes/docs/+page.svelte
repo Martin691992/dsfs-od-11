@@ -25,13 +25,13 @@
 			<p>La rubrique de gauche vous permet de naviguer.</p>
 		</section>
 		<section id="prediction">
-			<h2>Prédire le revenue de votre voiture</h2>
+			<h2>Prédire le revenu généré par votre voiture</h2>
 			<p>
-				Liens vers la <a href="/predictions">prédiction des revenues de votre voiture</a>
+				Liens vers la <a href="/predictions">prédiction des revenus de votre voiture</a>
 			</p>
 			<p>
-				Grâce à cette page vous pourrez, en entrant les informations sur votre véhicule découvrir
-				les potentiels revenues que vous pouvez générer par jour.
+				Grâce à cette page, vous pourrez découvrir les revenus potentiels que votre véhicule peut
+				générer par réservation en renseignant ses informations.
 			</p>
 			<p>Liste des informations nécessaire :</p>
 			<ul>
@@ -54,7 +54,7 @@
 			<h2>API</h2>
 			<h3>/predict</h3>
 			<p>
-				Descrition de notre API ouverte qui vous permettra de connaitre le revenue potentiel de
+				Description de notre API ouverte, qui vous permettra de connaître le revenu potentiel de
 				votre voiture.
 			</p>
 
@@ -107,50 +107,49 @@
 				<p>Exemples de code Python :</p>
 				<code>
 					import requests
-					<br>
-					<br>
+					<br />
+					<br />
 					response = requests.post("https://getaround.bonnardconsulting.fr/predict", json={'{'}
-					<br>
-								<span>"model_key": "Renault",</span>	
-					<br>
-								<span>"mileage": 45000,</span>	
-					<br>
-								<span>"engine_power": 90,</span>	
-					<br>
-								<span>"fuel": "diesel",</span>	
-					<br>
-								<span>"paint_color": "black",</span>	
-					<br>
-								<span>"car_type": "estate",</span>	
-					<br>
-								<span>"private_parking_available": "True",</span>	
-					<br>
-								<span>"has_gps": "True",</span>	
-					<br>
-								<span>"has_air_conditioning": "True",</span>	
-					<br>
-								<span>"automatic_car": "True",</span>	
-					<br>
-								<span>"has_getaround_connect": "True",</span>	
-					<br>
-								<span>"has_speed_regulator": "True",</span>	
-					<br>
-								<span>"winter_tires": "True"</span>	
-								{'}'})
-					<br>
-					<br>
+					<br />
+					<span>"model_key": "Renault",</span>
+					<br />
+					<span>"mileage": 45000,</span>
+					<br />
+					<span>"engine_power": 90,</span>
+					<br />
+					<span>"fuel": "diesel",</span>
+					<br />
+					<span>"paint_color": "black",</span>
+					<br />
+					<span>"car_type": "estate",</span>
+					<br />
+					<span>"private_parking_available": "True",</span>
+					<br />
+					<span>"has_gps": "True",</span>
+					<br />
+					<span>"has_air_conditioning": "True",</span>
+					<br />
+					<span>"automatic_car": "True",</span>
+					<br />
+					<span>"has_getaround_connect": "True",</span>
+					<br />
+					<span>"has_speed_regulator": "True",</span>
+					<br />
+					<span>"winter_tires": "True"</span>
+					{'}'})
+					<br />
+					<br />
 					print(response.json())
-					</code
-				>
+				</code>
 			</div>
 			<div class="parametres">
 				<p>Output :</p>
 				<p>Format JSON</p>
 				<code>
 					{'{'}
-					<br>
-						<span>153.56</span>
-					<br>
+					<br />
+					<span>153.56</span>
+					<br />
 					{'}'}
 				</code>
 			</div>
@@ -212,7 +211,7 @@
 			flex-direction: column;
 			gap: 5em;
 			background-color: rgba(181, 42, 173, 0.1);
-			border-radius: 8px;
+			border-radius: 6px;
 			padding: 2em;
 			height: 75vh;
 			overflow-y: scroll;
@@ -261,7 +260,7 @@
 							padding-left: 1em;
 						}
 					}
-					span{
+					span {
 						font-family: 'Poppins';
 					}
 				}

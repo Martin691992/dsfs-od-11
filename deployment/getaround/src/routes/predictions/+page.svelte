@@ -7,9 +7,9 @@
 			headers: {
 				'content-type': 'application/json'
 			},
-			body: JSON.stringify({input : to_predict})
+			body: JSON.stringify(to_predict)
 		});
-		console.log(JSON.stringify(to_predict))
+		// console.log(JSON.stringify(to_predict))
 		const data = await request.json();
 
 		return data
