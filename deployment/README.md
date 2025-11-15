@@ -14,6 +14,7 @@ Un sous-processus sera utilisé pour lire les résultats d’un script Python.
 Pour obtenir le build de l'application 
 
 `npm install` => nécessite node 22.14.0
+
 `npm run build`
 
 Le déploiement se fait grâce au **docker-compose** présent dans le projet.
@@ -29,7 +30,10 @@ sudo docker compose up --build
 Fichiers requis  : 
 
 inference : 
+
     - inf.py
+
     - infe_rental_price.joblib
+
 
 Build
